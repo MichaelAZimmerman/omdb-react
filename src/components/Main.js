@@ -3,8 +3,10 @@ import Results from "./results/Results";
 
 const Main = () => {
   const [newTitle, setNewTitle] = useState("");
-  const [sortYear, setSortYear] = useState("any");
-  const [typeOf, setTypeOf] = useState("any");
+  const [yearBy, setYearBy] = useState("");
+  const [typeOf, setTypeOf] = useState("");
+  const [response, setResponse] = useState("");
+
   return (
     <div className="flexBox">
       <aside>
@@ -21,12 +23,13 @@ const Main = () => {
           <br />
           <br />
           <label htmlFor="year">Year of release:</label>
+
           <select
             id="year"
-            value={sortYear}
-            onChange={(e) => setSortYear(e.target.value)}
+            value={yearBy}
+            onChange={(e) => setYearBy(e.target.value)}
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option value="1940">1940</option>
             <option value="1941">1941</option>
             <option value="1942">1942</option>
@@ -121,8 +124,8 @@ const Main = () => {
             type="radio"
             name="type"
             id="any"
-            value="any"
-            checked={typeOf === "any"}
+            value=""
+            checked={typeOf === ""}
             onChange={(e) => setTypeOf(e.target.value)}
           ></input>
           <label htmlFor="any">Any</label>
@@ -156,11 +159,38 @@ const Main = () => {
           <label htmlFor="game">Game</label>
         </form>
         <br />
-        <button id="getF">Search</button>
+        <button
+          id="getF"
+          onClick={(e) => {
+            if (newTitle.length > 2) {
+              fetch(
+                "http://www.omdbapi.com/?i=tt3896198&apikey=811f6389" +
+                  "&s=" +
+                  newTitle +
+                  "&y=" +
+                  yearBy +
+                  "&type=" +
+                  typeOf
+              )
+                .then(function (response) {
+                  console.log(response);
+
+                  return response.json();
+                })
+                .then(function (res) {
+                  setResponse(() => res);
+                });
+            }
+          }}
+        >
+          Search
+        </button>
       </aside>
       <main>
         <div id="totalresults" className="textCenter"></div>
-        <div id="info" className="flexBox textCenter justify"></div>
+        <div id="info" className="flexBox textCenter justify">
+          <Results response={response} />
+        </div>
       </main>
     </div>
   );
