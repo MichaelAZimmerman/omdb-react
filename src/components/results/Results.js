@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import Display from "./Display";
 
 const Results = ({ response }) => {
-  if (response.Error != "Movie not found!") {
-    console.log(response);
-    return <Display response={response} />;
-  } else return <div>No results. Try changing search terms.</div>;
+  let totalResults = response.totalResults;
+  const isResponse = response.Response;
+  let searchResults = response.Search;
+  return (
+    <div>
+      {isResponse === "True" && (
+        <h1>Now Showing: 10 of {totalResults} results!</h1>
+      )}
+      {isResponse === "True" &&
+        searchResults.map((response, idx) => (
+          <Display key={idx} response={response} />
+        ))}
+    </div>
+  );
 };
 export default Results;
