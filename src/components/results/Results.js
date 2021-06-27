@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Display from "./Display";
 
-const Results = ({ response, search }) => {
+const Results = ({ response }) => {
   const totalResults = response.totalResults;
   const isResponse = response.Response;
   const searchResults = response.Search;
-  const searchLength = search.length;
   return (
-    <div>
+    <div className="flexBox">
       {/* Is searchbox 0? yes, null. no, nested condition */}
 
       {isResponse === "False" ? (

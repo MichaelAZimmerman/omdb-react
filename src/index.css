@@ -62,7 +62,7 @@ main {
   font-size: 12;
 }
 
-@media (min-width: 685px) {
+@media (min-width: 830px) {
   aside {
     flex-basis: calc(25% - 14px);
     min-height: 250px;
@@ -74,6 +74,7 @@ main {
 
   .container {
     flex-basis: calc(50% - 8px);
+    min-width: calc(50% - 8px);
   }
 }
 @media (min-width: 850px) {

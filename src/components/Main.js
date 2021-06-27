@@ -163,24 +163,27 @@ const Main = () => {
           id="getF"
           onClick={(e) => {
             e.preventDefault();
+            if (newTitle.length < 3) {
+              alert("Enter at least 3 characters into search box.");
+            } else {
+              fetch(
+                "http://www.omdbapi.com/?i=tt3896198&apikey=811f6389" +
+                  "&s=" +
+                  newTitle +
+                  "&y=" +
+                  yearBy +
+                  "&type=" +
+                  typeOf
+              )
+                .then(function (response) {
+                  console.log(response);
 
-            fetch(
-              "http://www.omdbapi.com/?i=tt3896198&apikey=811f6389" +
-                "&s=" +
-                newTitle +
-                "&y=" +
-                yearBy +
-                "&type=" +
-                typeOf
-            )
-              .then(function (response) {
-                console.log(response);
-
-                return response.json();
-              })
-              .then(function (res) {
-                setResponse(() => res);
-              });
+                  return response.json();
+                })
+                .then(function (res) {
+                  setResponse(() => res);
+                });
+            }
           }}
         >
           Search
@@ -189,7 +192,7 @@ const Main = () => {
       <main>
         <div id="totalresults" className="textCenter"></div>
         <div id="info" className="flexBox textCenter justify">
-          <Results response={response} search={newTitle} />
+          <Results response={response} />
         </div>
       </main>
     </div>
