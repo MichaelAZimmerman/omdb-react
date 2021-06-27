@@ -162,6 +162,8 @@ const Main = () => {
         <button
           id="getF"
           onClick={(e) => {
+            e.preventDefault();
+
             fetch(
               "http://www.omdbapi.com/?i=tt3896198&apikey=811f6389" +
                 "&s=" +
@@ -187,7 +189,7 @@ const Main = () => {
       <main>
         <div id="totalresults" className="textCenter"></div>
         <div id="info" className="flexBox textCenter justify">
-          <Results response={response} search={newTitle.length} />
+          <Results response={response} search={newTitle} />
         </div>
       </main>
     </div>
